@@ -40,8 +40,10 @@ Podemos and Ciudadanos had a strong anti-austerity discourse and managed to chan
 
 Here you can find an overview of the reasons and a study on how - and how much - the high levels of youth unemployment affected turnout in the country. Our guess is that, for the appeal to young voters and people demanding change, these new parties benefitted from a greater turnout, especially fostered by young people.
 
-HIGH LEVELS OF YOUTH UNEMPLOYMENT {data-width=650}
------------------------------------------------------------------------
+HIGH LEVELS OF YOUTH UNEMPLOYMENT 
+-------------------------------------
+    
+###Increasing Unemployment in Spain over time
 
 ```{r unemployment, message=FALSE, echo=FALSE}
 a <- plot_ly(Spain_data, x = ~Year, y = ~Unempl_rate_less25, name = "Increasing Unemployment in Spain over time")
@@ -51,11 +53,11 @@ a1 <- layout(a, title = 'Increasing Unemployment in Spain over time')
 a1
 ```
 
-DOES TURNOUT AND UNEMPLOYMENT CHANGE BETWEEN REGIONS? {data-width=350}
------------------------------------------------------------------------
-
-The following graph shows a preliminary exploration of the relationship between our main variables. A priori it seems that higher youth unemployment is correlated with lower levels of turnout, contrary to our hypothesis. However, the graph shows that in some regions this relationship is reversed. The following sections of the paper would explore this relationship deeply.
-
+Row
+-------------------------------------
+    
+### DOES TURNOUT AND UNEMPLOYMENT CHANGE BETWEEN REGIONS?
+    
 ```{r regions, message=FALSE, echo=FALSE}
 e <- plot_ly(Spain_data, x = ~Year, y = ~Turnout, text = ~paste("Turnout: ", Turnout), mode = "markers", color = ~Unempl_rate_less25, size = ~Unempl_rate_less25, opacity = ~Unempl_rate_less25)
 
@@ -63,6 +65,8 @@ e1 <- layout(e, title = 'Turnout and Youth Unemployment over time')
 
 e1
 ```
+
+### RELATION BETWEEN TURNOUT AND UNEMPLOYMENT PER REGION 
 
 ```{r regions2, message=FALSE, echo=FALSE}
 p <- ggplot(Spain_data, aes(Unempl_rate_less25, Turnout))
