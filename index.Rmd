@@ -1,7 +1,7 @@
 ---
 title: WHAT ARE THE REASONS BEHIND THE RECENT EVOLUTIONS IN THE SPANISH POLITICAL
   SYSTEM?
-author: "Rafael Goldzweig & Rita Alvarez"
+author: "Rafael Goldzweig & Rita Alvarez Martinez"
 date: "12 Dezember 2016"
 output: html_document
 ---
@@ -25,13 +25,14 @@ library(pastecs)
 library(stargazer)
 library(gplots)
 library(car)
+library(plotly)
 ```
 
 ```{r dataset, message=FALSE, echo=FALSE}
 Spain_data <- read.csv("https://raw.githubusercontent.com/schmuziger/Final-Data-Project/master/spain_data.csv")
 ```
 
-The Spanish parliament had a dramatic  change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left-, new parties gained strength during the Euro-crisis and managed to become relevant forces in the country???s political system. 
+The Spanish parliament had a dramatic  change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left-, new parties gained strength during the Euro-crisis and managed to become relevant forces in the country's political system. 
 
 Podemos and Ciudadanos had a strong anti-austerity discourse and managed to channel the social dissatisfaction into votes, fostered by many demonstrations happening in the country.
 
@@ -41,29 +42,23 @@ HIGH LEVELS OF YOUTH UNEMPLOYMENT
 -----------------------------------------------------------------------
 
 ```{r unemployment, message=FALSE, echo=FALSE}
-d2004 <- subset(Spain_data, Year <= 2004)
-d2008 <- subset(Spain_data, Year <= 2008 & Year>2004)
-d2011 <- subset(Spain_data, Year <= 2011 & Year>2008)
-d2015 <- subset(Spain_data, Year <= 20015 & Year>2011)
+a <- plot_ly(Spain_data, x = ~Year, y = ~Unempl_rate_less25, name = "Increasing Unemployment in Spain over time")
 
-ggplot() +
-geom_line(data=d2004, aes(x=Region_code, y=Unempl_rate_less25, group = 1, colour = "2004")) +
-geom_line(data=d2008, aes(x=Region_code, y=Unempl_rate_less25, group = 1, colour = "2008")) +
-geom_line(data=d2011, aes(x=Region_code, y=Unempl_rate_less25, group = 1, colour = "2011")) +
-geom_line(data=d2015, aes(x=Region_code, y=Unempl_rate_less25, group = 1, colour = "2015")) + ggtitle("Youth Unemployment per region 2004-2015") + 
- labs(x="Region", y="Unemployment rate 16-24") + 
- ggtitle("Youth Unemployment per region 2004-2015") + 
- scale_color_discrete(labels = Spain_data$Year) + 
- theme(legend.position = "bottom", legend.key = element_rect(size = 5, fill = 'white', colour = 'white'), legend.key.size = unit(5.0, 'lines'), axis.title.y=element_text(margin=margin(10,10,0,10))) + theme(axis.title.x = element_text(size = 15, vjust=-.2)) +
- theme(axis.title.y = element_text(size = 15, vjust=0.3))
+a1 <- layout(a, title = 'Increasing Unemployment in Spain over time')
 ```
 
 DOES TURNOUT AND UNEMPLOYMENT CHANGE BETWEEN REGIONS?
 -----------------------------------------------------------------------
 
-The following graph shows a preliminary explotation of the relationship between our main variables. A priori it seems that higher youth unemployment is correlated with lower levels of turnout, contrary to our hypothesis. However, the graph shows that in some regions this relationship is reversed. The following sections of the paper would explore this relationship deeply.
+The following graph shows a preliminary exploration of the relationship between our main variables. A priori it seems that higher youth unemployment is correlated with lower levels of turnout, contrary to our hypothesis. However, the graph shows that in some regions this relationship is reversed. The following sections of the paper would explore this relationship deeply.
 
 ```{r regions, message=FALSE, echo=FALSE}
+e <- plot_ly(Spain_data, x = ~Year, y = ~Turnout, text = ~paste("Turnout: ", Turnout), mode = "markers", color = ~Unempl_rate_less25, size = ~Unempl_rate_less25, opacity = ~Unempl_rate_less25)
+
+e1 <- layout(e, title = 'Turnout and Youth Unemployment over time')
+```
+
+```{r regions2, message=FALSE, echo=FALSE}
 p <- ggplot(Spain_data, aes(Unempl_rate_less25, Turnout))
 p1<-p + geom_point(aes(colour = Region_code)) 
 p3 <- p1 + labs(y="Turnout", x= "Youth Unemployment")
@@ -73,4 +68,3 @@ p5 <- p3 + scale_y_continuous("Voter Turnout",
 p6<-p5 + theme(axis.text.x = element_blank())
 p6
 ```
-
