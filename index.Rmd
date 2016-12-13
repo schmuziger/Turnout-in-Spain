@@ -38,35 +38,10 @@ The Spanish parliament had a dramatic  change in its composition in a short peri
 
 Podemos and Ciudadanos had a strong anti-austerity discourse and managed to channel the social dissatisfaction into votes, fostered by many demonstrations happening in the country.
 
-Here you can find an overview of the reasons and a study on how - and how much - the high levels of youth unemployment affected turnout in the country. Our guess is that, for the appeal to young voters and people demanding change, these new parties benefitted from a greater turnout, especially fostered by young people.
-
-HIGH LEVELS OF YOUTH UNEMPLOYMENT 
+The data shows that Spain had extremely high levels of youth unemployment in almost all of the regions, noticeably between the 2008 elections and the 2011. Our guess is that high levels of unemployment affected voter behavior between this period. The graph with regions indicates a positive relation between youth unemployment and higher turnout in almost all of the regions in Spain.
 -------------------------------------
-    
-###Increasing Unemployment in Spain over time
 
-```{r unemployment, message=FALSE, echo=FALSE}
-a <- plot_ly(Spain_data, x = ~Year, y = ~Unempl_rate_less25, name = "Increasing Unemployment in Spain over time")
-
-a1 <- layout(a, title = 'Increasing Unemployment in Spain over time')
-
-a1
-```
-
-Row
--------------------------------------
-    
-### DOES TURNOUT AND UNEMPLOYMENT CHANGE BETWEEN REGIONS?
-    
-```{r regions, message=FALSE, echo=FALSE}
-e <- plot_ly(Spain_data, x = ~Year, y = ~Turnout, text = ~paste("Turnout: ", Turnout), mode = "markers", color = ~Unempl_rate_less25, size = ~Unempl_rate_less25, opacity = ~Unempl_rate_less25)
-
-e1 <- layout(e, title = 'Turnout and Youth Unemployment over time')
-
-e1
-```
-
-### RELATION BETWEEN TURNOUT AND UNEMPLOYMENT PER REGION 
+### Turnout vs. Youth unemployment, per region 
 
 ```{r regions2, message=FALSE, echo=FALSE}
 p <- ggplot(Spain_data, aes(Unempl_rate_less25, Turnout))
@@ -77,4 +52,41 @@ p5 <- p3 + scale_y_continuous("Voter Turnout",
                               breaks=seq(0.4, 0.85, 0.2)) + stat_smooth(method = 'lm', aes(colour = Region_code), se = FALSE)
 p6<-p5 + theme(axis.text.x = element_blank())
 p6
+```
+
+Row
+-------------------------------------
+    
+### Turnout vs. Youth Unemployment
+    
+```{r regions, message=FALSE, echo=FALSE}
+e <- plot_ly(Spain_data, x = ~Year, y = ~Turnout, text = ~paste("Turnout: ", Turnout), mode = "markers", color = ~Unempl_rate_less25, size = ~Unempl_rate_less25, opacity = ~Unempl_rate_less25)
+
+e1 <- layout(e, title = 'Turnout and Youth Unemployment over time')
+
+e1
+```
+
+###Youth unemployment vs. Regions
+
+```{r unemployment, message=FALSE, echo=FALSE}
+d2004 <- subset(Spain_data, Year <= 2004)
+d2008 <- subset(Spain_data, Year <= 2008 & Year>2004)
+d2011 <- subset(Spain_data, Year <= 2011 & Year>2008)
+d2015 <- subset(Spain_data, Year <= 20015 & Year>2011)
+
+trace_2004 <- rnorm(d2004$Region_code, d2004$Unempl_rate_less25)
+trace_2008 <- rnorm(d2008$Region_code, d2008$Unempl_rate_less25)
+trace_2011 <- rnorm(d2011$Region_code, d2011$Unempl_rate_less25)
+trace_2015 <- rnorm(d2015$Region_code, d2015$Unempl_rate_less25)
+Unemployment <- rnorm(d2004$Region_code, d2004$Unempl_rate_less25)
+x <- c(d2004$Region_code)
+
+data <- data.frame(x, trace_2004, trace_2008, trace_2011, trace_2015)
+
+a <- plot_ly(data, Region = ~x, y = ~Unemployment, name = '2004', type = 'scatter', mode = 'lines')%>%add_trace(y = ~trace_2008, name = '2008', mode = 'lines')%>%add_trace(y = ~trace_2011, name ='2011', mode = 'lines')%>%add_trace(y = ~trace_2015, name = '2015', mode = 'lines')
+
+a <- layout(a, title = 'Youth Unemployment in different regions in Spain over time')
+
+a
 ```
