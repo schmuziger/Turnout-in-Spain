@@ -34,8 +34,10 @@ library(plotly)
 Spain_data <- read.csv("https://raw.githubusercontent.com/schmuziger/Final-Data-Project/master/spain_data.csv")
 ```
 
-The Spanish parliament had a dramatic change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left- until 2011, new parties - Podemos and Ciudadanos - gained strength during the Euro-crisis and managed to become relevant forces in the country's political system in 2015. Here you can find an overview of socio-economic data that help explaining part of that change. The aim of the project is to see whether youth unemployment had any impact on voter turnout rates, leading to the abovementioned change. We hope you enjoy our data vizualization skills!
+The Spanish parliament had a dramatic change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left- until 2011, new parties - Podemos and Ciudadanos - gained strength during the Euro-crisis and managed to become relevant forces in the country's political system in 2015. Here you can find an overview of socio-economic data that help explaining part of that change. The aim of the project is to see whether youth unemployment had any impact on voter turnout rates, leading to the abovementioned change. 
+We hope you enjoy our data vizualization skills!
 
+Column {data-width=600}
 -------------------------------------
 
 ### Turnout vs. Youth unemployment, per region 
@@ -51,9 +53,8 @@ p6<-p5 + theme(axis.text.x = element_blank())
 p6
 ```
 
-Row
+Column {data-width=400}
 -------------------------------------
-    
 ### Turnout vs. Youth Unemployment
     
 ```{r regions, message=FALSE, echo=FALSE}
