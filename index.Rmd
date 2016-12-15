@@ -1,6 +1,6 @@
 ---
 title: WHAT ARE THE REASONS BEHIND THE RECENT EVOLUTIONS IN THE SPANISH POLITICAL
-  SYSTEM?"
+  SYSTEM?
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -34,11 +34,8 @@ library(plotly)
 Spain_data <- read.csv("https://raw.githubusercontent.com/schmuziger/Final-Data-Project/master/spain_data.csv")
 ```
 
-The Spanish parliament had a dramatic  change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left-, new parties gained strength during the Euro-crisis and managed to become relevant forces in the country's political system. 
+The Spanish parliament had a dramatic change in its composition in a short period of time. Going from a bi-party system dominated by the PP - center-right - and the PSOE - center-left- until 2011, new parties - Podemos and Ciudadanos - gained strength during the Euro-crisis and managed to become relevant forces in the country's political system in 2015. Here you can find an overview of socio-economic data that help explaining part of that change. The aim of the project is to see whether youth unemployment had any impact on voter turnout rates, leading to the abovementioned change. We hope you enjoy our data vizualization skills!
 
-Podemos and Ciudadanos had a strong anti-austerity discourse and managed to channel the social dissatisfaction into votes, fostered by many demonstrations happening in the country.
-
-The data shows that Spain had extremely high levels of youth unemployment in almost all of the regions, noticeably between the 2008 elections and the 2011. Our guess is that high levels of unemployment affected voter behavior between this period. The graph with regions indicates a positive relation between youth unemployment and higher turnout in almost all of the regions in Spain.
 -------------------------------------
 
 ### Turnout vs. Youth unemployment, per region 
